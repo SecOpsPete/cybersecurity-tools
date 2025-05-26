@@ -1,7 +1,31 @@
-# Cybersecurity Tools
+# 🛡️ Cybersecurity Tools
 
-A growing collection of practical scripts, guides, and tools to support cybersecurity operations.
+A curated collection of practical scripts, guides, and verification tools to support secure operations, threat mitigation, and responsible software handling. Each item is built with real-world application in mind and tailored for cybersecurity professionals and learners alike.
 
-## 📂 Tools
+---
 
-- [`gpg-verification-guide`](./gpg-verification-guide) — How to verify downloaded files using GPG and signature files (.asc)
+## 📂 Included Tools
+
+- 🔐 [GPG Signature Verification Guide](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/gpg-verification-guide)  
+  Learn how to verify the authenticity of downloaded files using GPG digital signatures and official public keys.
+
+- 🧪 [File Integrity Verification (SHA256)](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/file-integrity-verification)  
+  Ensure downloaded files haven’t been tampered with or corrupted by validating their SHA256 hash using PowerShell.
+
+---
+
+## 🧠 Purpose
+
+These tools are designed to promote hands-on security practices in areas like:
+
+- Secure file validation  
+- Incident response preparation  
+- Forensic data integrity  
+- Supply chain defense
+
+New tools and topics will be added regularly as the project expands.
+
+---
+
+> ✍️ Maintained by [Peter Van Rossum](https://www.linkedin.com/in/vanr/), as part of his practical cybersecurity portfolio.
+
