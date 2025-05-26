@@ -40,7 +40,7 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 3. 📖 **Manually copy the official SHA256 hash from wireshark.org/download.html**
 
     ```powershell
-    $officialHash = d1925b045300c34ea8082b7ec0d79aeae31edf01eb9fdd9b69e069ece785ca93
+    $officialHash = "d1925b045300c34ea8082b7ec0d79aeae31edf01eb9fdd9b69e069ece785ca93"
     ```
 
 4. 🧮 **Compute the SHA256 hash of the downloaded installer**
