@@ -7,7 +7,7 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 ## 📦 Example Files
 
 - `Wireshark-4.4.6-x64.exe` — the file to verify  
--  — the official webpage containing the published hashes [https://www.wireshark.org/download.html]
+-  — the official webpage containing the published hashes https://www.wireshark.org/download.html
 
 ---
 
