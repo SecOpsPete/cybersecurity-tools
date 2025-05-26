@@ -49,13 +49,7 @@ This guide walks through how to verify the **integrity** of a downloaded file us
     $myHash = (Get-FileHash .\Wireshark-4.4.6-x64.exe -Algorithm SHA256).Hash
     ```
 
-5. 📄 **Extract the official hash from the `.sha256` file content**
-
-    ```powershell
-    $officialHash = (Get-Content .\Wireshark-win64-4.0.10.exe.sha256).Split(" ")[0]
-    ```
-
-6. ✅ **Compare your computed hash with the official hash**
+5. ✅ **Compare your computed hash with the official hash**
 
 Use this PowerShell snippet to compare your computed SHA256 hash with the official hash and get a clear success or failure message:
 
