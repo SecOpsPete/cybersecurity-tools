@@ -50,7 +50,7 @@ gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 0x78A65729
 gpg --fingerprint 0x78A65729
 ```
 
-**STEP 6: (Optional - Manually verify) Ensure the fingerprint matches the official source**
+**STEP 6: (Manually verify) Ensure the fingerprint matches the official source**
 
 Official Tor Project fingerprint:  
 
