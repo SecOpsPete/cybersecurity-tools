@@ -20,47 +20,47 @@ This guide walks through the complete process of verifying the authenticity and 
 
 ## ⚙️ Step-by-Step Instructions (PowerShell)
 
-# STEP 1: Navigate to the Downloads folder
+**STEP 1: Navigate to the Downloads folder**
 
 ```powershell
 cd "$env:USERPROFILE\Downloads"
 ```
 
-# STEP 2: Confirm both files are present
+**STEP 2: Confirm both files are present**
 
 ```powershell
 ls *.exe, *.asc
 ```
 
-# STEP 3: Optional - check for hidden extensions like ".asc.txt"
+**STEP 3: Optional - check for hidden extensions like ".asc.txt"**
 
 ```powershell
 ls *.asc*
 ```
 
-# STEP 4: Import the Tor Browser Developers public GPG key
+**STEP 4: Import the Tor Browser Developers public GPG key**
 
 ```powershell
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 0x78A65729
 ```
 
-# STEP 5: View the full key fingerprint
+**STEP 5: View the full key fingerprint**
 
 ```powershell
 gpg --fingerprint 0x78A65729
 ```
 
-# STEP 6: (Manually verify) Ensure the fingerprint matches the official source
-# Official Tor Project fingerprint:
-# EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290
+**STEP 6: (Manually verify) Ensure the fingerprint matches the official source**
+Official Tor Project fingerprint:
+'EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290'
 
-# STEP 7: Run the signature verification command
+**STEP 7: Run the signature verification command**
 
 ```powershell
 gpg --verify "tor-browser-windows-x86_64-portable-14.5.2.exe.asc" "tor-browser-windows-x86_64-portable-14.5.2.exe"
 ```
 
-# STEP 8: Interpret the output
+**STEP 8: Interpret the output
 # - "Good signature from ..." = ✅ Success
 # - "WARNING: This key is not certified..." = ⚠️ Informational only
 # - "BAD signature" = ❌ Do NOT trust the file
