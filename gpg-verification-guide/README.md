@@ -47,3 +47,18 @@ gpg --verify "tor-browser-windows-x86_64-portable-14.5.2.exe.asc" "tor-browser-w
 # - "Good signature from ..." = ✅ Success
 # - "WARNING: This key is not certified..." = ⚠️ Informational only
 # - "BAD signature" = ❌ Do NOT trust the file
+
+---
+
+## 🧠 Why This Matters
+
+Verifying downloaded files protects against:
+
+- 🧪 **Tampering or corruption** — ensures the file wasn’t altered during download
+- 🧨 **Malware from unofficial mirrors** — prevents installing malicious lookalikes
+- 🛠️ **Supply-chain attacks** — confirms the file really came from the vendor
+
+This is a fundamental part of secure software practices and a critical skill in cybersecurity.
+
+---
+
