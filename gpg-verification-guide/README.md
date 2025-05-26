@@ -11,7 +11,7 @@ This guide walks through the complete process of verifying the authenticity and 
 
 ---
 
-## 🧰 Prerequisites
+### 🧰 Prerequisites
 
 - GPG installed (e.g., via [Gpg4win](https://gpg4win.org/))
 - Both the `.exe` and `.asc` files saved in the same folder (e.g., Downloads)
