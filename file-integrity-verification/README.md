@@ -31,16 +31,16 @@ This guide walks through how to verify the **integrity** of a downloaded file us
     cd "$env:USERPROFILE\Downloads"
     ```
 
-2. 🔍 **Confirm the presence of the `.exe` and `.sha256` files**
+2. 🔍 **Confirm the installer is in the directory**
 
     ```powershell
-    ls *.exe, *.sha256
+    ls *.exe
     ```
 
-3. 📖 **View the official SHA256 hash from the `.sha256` file**
+3. 📖 **Manually copy the official SHA256 hash from wireshark.org/download.html**
 
     ```powershell
-    Get-Content .\Wireshark-win64-4.0.10.exe.sha256
+    $officialHash = d1925b045300c34ea8082b7ec0d79aeae31edf01eb9fdd9b69e069ece785ca93
     ```
 
 4. 🧮 **Compute the SHA256 hash of the downloaded installer**
