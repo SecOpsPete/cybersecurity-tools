@@ -21,6 +21,7 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 
 ## ⚙️ Step-by-Step Instructions (PowerShell)
 
+```powershell
 # STEP 1: Navigate to the folder containing your downloaded files
 cd "$env:USERPROFILE\Downloads"
 
@@ -68,3 +69,4 @@ Checking a file’s hash is a key step in any secure download process. It confir
 ---
 
 Hash verification is a foundational skill for cybersecurity professionals and an essential habit in secure software workflows.
+
