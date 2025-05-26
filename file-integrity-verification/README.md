@@ -21,7 +21,45 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 
 ## ⚙️ Step-by-Step Instructions (PowerShell)
 
-*(PowerShell script removed. Insert your own script or commands here.)*
+## ⚙️ PowerShell Instructions for Verifying SHA256 Hash
+
+Follow these PowerShell commands step-by-step to verify the integrity of your downloaded Wireshark installer:
+
+1. **Navigate to the folder containing your downloaded files**
+
+    cd "$env:USERPROFILE\Downloads"
+
+2. **Confirm the presence of the `.exe` and `.sha256` files**
+
+    ls *.exe, *.sha256
+
+3. **View the official SHA256 hash from the `.sha256` file**
+
+    Get-Content .\Wireshark-win64-4.0.10.exe.sha256
+
+4. **Compute the SHA256 hash of the downloaded installer**
+
+    $myHash = (Get-FileHash .\Wireshark-win64-4.0.10.exe -Algorithm SHA256).Hash
+
+5. **Extract the official hash from the `.sha256` file content**
+
+    $officialHash = (Get-Content .\Wireshark-win64-4.0.10.exe.sha256).Split(" ")[0]
+
+6. **Compare your computed hash with the official hash**
+
+Use this PowerShell snippet to compare your computed SHA256 hash with the official hash and get a clear success or failure message:
+
+```powershell
+if ($myHash -eq $officialHash) {
+    Write-Host "`n✅ Hashes match. File integrity verified." -ForegroundColor Green
+} else {
+    Write-Host "`n❌ Hash mismatch. File may be corrupted or tampered with." -ForegroundColor Red
+}
+```
+---
+
+**Note:** Replace file names with the exact versions you downloaded if different.
+
 
 ---
 
