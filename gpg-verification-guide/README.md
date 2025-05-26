@@ -61,9 +61,9 @@ gpg --verify "tor-browser-windows-x86_64-portable-14.5.2.exe.asc" "tor-browser-w
 ```
 
 **STEP 8: Interpret the output
-# - "Good signature from ..." = ✅ Success
-# - "WARNING: This key is not certified..." = ⚠️ Informational only
-# - "BAD signature" = ❌ Do NOT trust the file
+**- "Good signature from ..." = ✅ Success**
+**- "WARNING: This key is not certified..." = ⚠️ Informational only**
+**- "BAD signature" = ❌ Do NOT trust the file**
 
 ---
 
