@@ -6,8 +6,8 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 
 ## 📦 Example Files
 
-- `Wireshark-win64-4.0.10.exe` — the file to verify  
-- `Wireshark-win64-4.0.10.exe.sha256` — the official file containing the published hashes from the [Wireshark download page](https://www.wireshark.org/download.html)
+- `Wireshark-win64-4.4.6.exe` — the file to verify  
+- `Wireshark-win64-4.4.6.exe.sha256` — the official file containing the published hashes from the [Wireshark download page](https://www.wireshark.org/download.html)
 
 ---
 
@@ -46,7 +46,7 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 4. 🧮 **Compute the SHA256 hash of the downloaded installer**
 
     ```powershell
-    $myHash = (Get-FileHash .\Wireshark-win64-4.0.10.exe -Algorithm SHA256).Hash
+    $myHash = (Get-FileHash .\Wireshark-win64-4.4.6.exe -Algorithm SHA256).Hash
     ```
 
 5. 📄 **Extract the official hash from the `.sha256` file content**
