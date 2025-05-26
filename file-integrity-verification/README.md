@@ -23,29 +23,39 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 
 ## ⚙️ PowerShell Instructions for Verifying SHA256 Hash
 
-Follow these PowerShell commands step-by-step to verify the integrity of your downloaded Wireshark installer:
+### ⚙️ Follow these PowerShell commands step-by-step to verify the integrity of your downloaded Wireshark installer:
 
-1. **Navigate to the folder containing your downloaded files**
+1. 📂 **Navigate to the folder containing your downloaded files**
 
+    ```powershell
     cd "$env:USERPROFILE\Downloads"
+    ```
 
-2. **Confirm the presence of the `.exe` and `.sha256` files**
+2. 🔍 **Confirm the presence of the `.exe` and `.sha256` files**
 
+    ```powershell
     ls *.exe, *.sha256
+    ```
 
-3. **View the official SHA256 hash from the `.sha256` file**
+3. 📖 **View the official SHA256 hash from the `.sha256` file**
 
+    ```powershell
     Get-Content .\Wireshark-win64-4.0.10.exe.sha256
+    ```
 
-4. **Compute the SHA256 hash of the downloaded installer**
+4. 🧮 **Compute the SHA256 hash of the downloaded installer**
 
+    ```powershell
     $myHash = (Get-FileHash .\Wireshark-win64-4.0.10.exe -Algorithm SHA256).Hash
+    ```
 
-5. **Extract the official hash from the `.sha256` file content**
+5. 📄 **Extract the official hash from the `.sha256` file content**
 
+    ```powershell
     $officialHash = (Get-Content .\Wireshark-win64-4.0.10.exe.sha256).Split(" ")[0]
+    ```
 
-6. **Compare your computed hash with the official hash**
+6. ✅ **Compare your computed hash with the official hash**
 
 Use this PowerShell snippet to compare your computed SHA256 hash with the official hash and get a clear success or failure message:
 
