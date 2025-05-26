@@ -21,7 +21,6 @@ This guide walks through how to verify the **integrity** of a downloaded file us
 
 ## ⚙️ Step-by-Step Instructions (PowerShell)
 
-```powershell
 # STEP 1: Navigate to the folder containing your downloaded files
 cd "$env:USERPROFILE\Downloads"
 
@@ -43,6 +42,9 @@ if ($myHash -eq $officialHash) {
 } else {
     Write-Host "`n❌ Hash mismatch. File may be corrupted or tampered with." -ForegroundColor Red
 }
+
+---
+
 ## 🧠 Why File Integrity Verification Matters
 
 Checking a file’s hash is a key step in any secure download process. It confirms the file was not altered, corrupted, or replaced before execution.
