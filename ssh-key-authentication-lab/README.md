@@ -1,6 +1,6 @@
 # 🔐 SSH Key Authentication Lab (Azure or VirtualBox)
 
-A hands-on lab that walks you through setting up secure SSH access using public-private key pairs. You’ll SSH from one machine into an Ubuntu server using a secure RSA key pair — either with **Azure Cloud VMs** or **VirtualBox local VMs**.
+A hands-on lab that walks you through setting up secure SSH access using public-private key pairs. You’ll SSH from your personal PC (or a local VM) into an Ubuntu server hosted either on Azure or in VirtualBox, using a secure RSA key pair.
 
 ---
 
@@ -77,30 +77,52 @@ Once successful, proceed to SSH key configuration.
 
 ## ☁️ Azure Setup Steps
 
-### ✅ Step 1: Confirm or Generate SSH Key (on Host)
+Before you deploy your VM, make sure you have an SSH public key ready. If you haven’t created one yet, follow [✅ STEP 1: Generate SSH Key Pair](#-step-1-generate-ssh-key-pair-on-client-machine) below.
 
-In PowerShell:
+Then follow the instructions below to deploy your Ubuntu VM in Azure.
 
-```powershell
-cat $env:USERPROFILE\.ssh\id_rsa.pub
-```
-
-If nothing prints, generate a key:
-
-```powershell
-ssh-keygen -t rsa -b 4096 -C "peter@azurelab"
-```
 
 ---
 
 ### ✅ Step 2: Deploy Azure VM with Public Key
 
-1. **Authentication Type**: Select **SSH public key**  
-2. **Username**: Set this (e.g., `azureuser`) — it will be your SSH login  
-3. **SSH Public Key Source**: Choose **Use existing public key**  
-4. **Paste your public key** (output from `cat id_rsa.pub`)  
-5. **Allow SSH (port 22)** in inbound ports  
-6. Complete provisioning and note the **public IP address**
+When creating a new Ubuntu VM in the Azure portal, follow these steps to configure it for SSH key authentication. This ensures your public key is authorized during provisioning, allowing you to log in securely without a password.
+
+1. **Go to Azure Portal**:  
+   Navigate to [portal.azure.com](https://portal.azure.com) and click **Create a resource** > **Ubuntu Server**.
+
+2. **Authentication Type**:  
+   On the **Basics** tab, under "Administrator account," select:  
+   **☑️ SSH public key** — This method is more secure than using a password.
+
+3. **Username**:  
+   Choose a username (e.g., `azureuser`).  
+   ⚠️ You’ll use this exact name to SSH into the VM later:
+   ```bash
+   ssh azureuser@<Azure_Public_IP>
+   ```
+
+4. **SSH Public Key Source**:  
+   Choose:  
+   **☑️ Use existing public key**
+
+5. **Paste Your Public Key**:  
+   Copy the entire output of the following command on your personal PC:
+   ```powershell
+   cat $env:USERPROFILE\.ssh\id_rsa.pub
+   ```
+   Paste this into the **SSH public key** field.  
+   🔐 Make sure you don’t accidentally include extra text or line breaks.
+
+6. **Allow Inbound Port 22**:  
+   Under **Inbound port rules**, allow **SSH (22)** access so you can connect remotely.
+
+7. **Complete Provisioning**:  
+   Click **Review + Create**, then **Create**.  
+   When the VM is finished deploying, note its **public IP address** — you’ll use this to SSH into it.
+
+---
+
 
 ---
 
