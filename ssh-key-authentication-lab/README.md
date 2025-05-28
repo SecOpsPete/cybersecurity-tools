@@ -262,8 +262,6 @@ chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 ```
 
----
-
 ## 🧠 Troubleshooting Guide
 
 | Symptom                          | Suggested Fix                                                       |
@@ -274,17 +272,6 @@ chmod 600 ~/.ssh/authorized_keys
 | Debug login attempts             | Use verbose output: `ssh -v username@host`                          |
 
 ---
-
-## 📁 Suggested Project Folder Structure
-
-```
-ssh-key-authentication-lab/
-├── README.md
-├── scripts/
-│   └── cleanup-ssh-keys.sh
-├── screenshots/
-│   └── ssh-keygen-example.png
-```
 
 ---
 
