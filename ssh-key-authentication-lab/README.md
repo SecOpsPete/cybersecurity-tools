@@ -13,176 +13,138 @@ A hands-on lab that walks you through setting up secure SSH access using public-
 
 ---
 
-## 🛠️ Lab Environment Options
+## 🧰 Lab Setup
+
+Choose one of the following deployment options for your Ubuntu server target:
 
 | Option       | Description                                      |
 |--------------|--------------------------------------------------|
-| ☁️ Azure      | SSH from your PC into an Ubuntu VM with public IP |
-| 🖥️ VirtualBox | SSH from one local Ubuntu/Kali VM into another   |
+| ☁️ Azure      | SSH from your personal machine into an Ubuntu VM with a public IP |
+| 🖥️ VirtualBox | SSH from one local VM (client) into another Ubuntu VM (server)    |
 
 ---
 
-## ⚙️ VirtualBox Network Setup
+## ⚙️ VirtualBox Network Setup (If Using VirtualBox)
 
-If using VirtualBox, ensure both VMs are on the same **Internal Network** or **Host-Only Adapter**:
+To enable communication between your two VirtualBox VMs:
 
-1. Open VirtualBox > VM Settings > Network  
-2. Adapter 1 > Attached to: `Internal Network` or `Host-Only Adapter`  
-3. Boot both VMs and run `ip a` to find the server's private IP  
+1. Open VirtualBox → Select VM → Settings → Network  
+2. Set Adapter 1 to: `Internal Network` or `Host-Only Adapter`  
+3. Use the **same network name** for both VMs  
+4. Boot both VMs and run `ip a` to view their IP addresses  
 
 ---
 
-## 🧪 Connectivity Check (VirtualBox Only)
+### 🔍 Connectivity Test (VirtualBox Only)
 
-Before beginning the SSH key configuration, ensure your two VirtualBox VMs can communicate over the network.
+#### Step A: Check IPs
 
-### ✅ Step 1: Confirm IP Addresses
-
-On **each VM**, open a terminal and run:
+On both VMs:
 
 ```bash
 ip a
 ```
 
-Look for the IP address under the active adapter (usually `enp0s3` or `eth0`). For example:
+Find the `inet` line under `eth0` or `enp0s3`.
 
-```
-inet 10.0.2.15/24
-```
+#### Step B: Ping Test
 
-Record the IP address of each VM.
-
----
-
-### ✅ Step 2: Test Connectivity (Ping from Client to Server)
-
-From the **client VM** (the one you'll SSH from), run:
+From the **client VM**, ping the server:
 
 ```bash
 ping <Target_VM_IP>
 ```
 
-Example:
-
-```bash
-ping 10.0.2.15
-```
-
----
-
-### 🧠 If it works:
-You’ll see output like:
+Success output looks like:
 
 ```
 64 bytes from 10.0.2.15: icmp_seq=1 ttl=64 time=0.456 ms
 ```
 
+If it fails with `Destination Host Unreachable`, ensure:
+- Both VMs are on the same VirtualBox network
+- You check updated IPs after boot
+- UFW isn’t blocking SSH or ICMP:
+  ```bash
+  sudo ufw allow ssh
+  sudo ufw enable
+  ```
+
 ---
 
-### ❌ If it fails:
-You might see:
+## ☁️ Azure VM Setup
 
+If you are using Azure, follow this process to deploy your VM properly for SSH key access.
+
+### Azure Step 1: Verify or Create an SSH Key (on Client PC)
+
+In PowerShell:
+
+```powershell
+cat $env:USERPROFILE\.ssh\id_rsa.pub
 ```
-Destination Host Unreachable
+
+If no key exists, generate one:
+
+```powershell
+ssh-keygen -t rsa -b 4096 -C "peter@azurelab"
 ```
 
-This means there is a networking issue between the VMs.
+---
+
+### Azure Step 2: Deploy an Ubuntu VM with Your SSH Key
+
+1. Go to [portal.azure.com](https://portal.azure.com)  
+2. Create a resource → Select **Ubuntu Server**
+
+3. Under "Administrator account":
+   - **Authentication type**: `SSH public key`
+   - **Username**: e.g., `azureuser` → this will be your SSH login name
+
+4. Under "SSH Public Key":
+   - Choose **Use existing public key**
+   - Paste the output from:
+     ```powershell
+     cat $env:USERPROFILE\.ssh\id_rsa.pub
+     ```
+   - ⚠️ Avoid extra whitespace or broken formatting
+
+5. Allow inbound port:
+   - **Port 22 (SSH)**
+
+6. Click **Review + Create** and then **Create**  
+7. After deployment, note your **public IP address**
 
 ---
 
-## 🛠️ If Pinging Fails
+## 🧪 SSH Authentication Lab (Step-by-Step Guide)
 
-- ✅ **Ensure both VMs are on the same VirtualBox network**
-  - Go to: VM → Settings → Network → Adapter 1
-  - Set **Attached to**: `NAT Network` or `Host-Only Adapter`
-  - Use the **same network name** for both
-
-- ✅ **Use `ip a` again** after applying changes to confirm new IPs
-
-- ✅ **Check firewall rules** on the target VM
-  - If using `ufw`, allow ping and SSH:
-    ```bash
-    sudo ufw allow ssh
-    sudo ufw enable
-    ```
-
-Once you confirm both VMs can ping each other, continue with SSH key generation.
+These are the main steps regardless of your environment (Azure or VirtualBox).
 
 ---
 
-## ☁️ Azure Setup Steps
+### ✅ STEP 1: Generate SSH Key Pair (on Client)
 
-Before you deploy your VM, make sure you have an SSH public key ready.  
-If you haven’t created one yet, follow [STEP 1: Generate SSH Key Pair (on Client Machine)](#step-1-generate-ssh-key-pair-on-client-machine) below.
+#### Windows (PowerShell)
 
-Then follow the instructions below to deploy your Ubuntu VM in Azure.
-
----
-
-### ✅ Step 2: Deploy Azure VM with Public Key
-
-When creating a new Ubuntu VM in the Azure portal, follow these steps to configure it for SSH key authentication. This ensures your public key is authorized during provisioning, allowing you to log in securely without a password.
-
-1. **Go to Azure Portal**:  
-   Navigate to [portal.azure.com](https://portal.azure.com) and click **Create a resource** > **Ubuntu Server**.
-
-2. **Authentication Type**:  
-   On the **Basics** tab, under "Administrator account," select:  
-   **☑️ SSH public key** — This method is more secure than using a password.
-
-3. **Username**:  
-   Choose a username (e.g., `azureuser`).  
-   ⚠️ You’ll use this exact name to SSH into the VM later:
-   ```bash
-   ssh azureuser@<Azure_Public_IP>
-   ```
-
-4. **SSH Public Key Source**:  
-   Choose:  
-   **☑️ Use existing public key**
-
-5. **Paste Your Public Key**:  
-   Copy the entire output of the following command on your personal PC:
-   ```powershell
-   cat $env:USERPROFILE\.ssh\id_rsa.pub
-   ```
-   Paste this into the **SSH public key** field.  
-   🔐 Make sure you don’t accidentally include extra text or line breaks.
-
-6. **Allow Inbound Port 22**:  
-   Under **Inbound port rules**, allow **SSH (22)** access so you can connect remotely.
-
-7. **Complete Provisioning**:  
-   Click **Review + Create**, then **Create**.  
-   When the VM is finished deploying, note its **public IP address** — you’ll use this to SSH into it.
-
----
-
-## 🧪 Step-by-Step Lab Guide
-
-### STEP 1: Generate SSH Key Pair (on Client Machine)
-
-#### If you're on Windows (for Azure):
 ```powershell
 ssh-keygen -t rsa -b 4096 -C "azureuser@ssh-lab"
 ```
 
-#### If you're on a local Linux VM (for VirtualBox):
+#### Linux (local VM)
+
 ```bash
 ssh-keygen -t rsa -b 4096 -C "client@local-vm"
 ```
 
-- Accept the default location (`~/.ssh/id_rsa`)
-- Enter a passphrase (optional)
+- Press Enter to accept default save path  
+- Set a passphrase (optional)
 
 ---
 
-### STEP 2: Copy Public Key to Server
+### ✅ STEP 2: Copy Your Public Key to the Target Server
 
-#### ☁️ Azure
-If your Azure VM was created with SSH key login, you’re already set.
-
-If not, and you need to add your public key after deployment, run:
+#### ☁️ Azure (if key wasn’t already added)
 
 ```powershell
 type $env:USERPROFILE\.ssh\id_rsa.pub | ssh azureuser@<Azure_Public_IP> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
@@ -190,81 +152,77 @@ type $env:USERPROFILE\.ssh\id_rsa.pub | ssh azureuser@<Azure_Public_IP> "mkdir -
 
 #### 🖥️ VirtualBox
 
-From your client VM, run:
+Use `ssh-copy-id` if available:
 
 ```bash
-ssh-copy-id username@<VM2_Private_IP>
+ssh-copy-id username@<Target_VM_IP>
 ```
 
 Or manually:
 
 ```bash
-cat ~/.ssh/id_rsa.pub | ssh username@<VM2_Private_IP> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+cat ~/.ssh/id_rsa.pub | ssh username@<Target_VM_IP> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ```
-
-Make sure `username` matches the login user on the target VM.
 
 ---
 
-### STEP 3: SSH into the Server
+### ✅ STEP 3: Connect to the Server via SSH
 
-#### ☁️ Azure
+#### Azure Example:
+
 ```powershell
 ssh azureuser@<Azure_Public_IP>
 ```
 
-#### 🖥️ VirtualBox
+#### VirtualBox Example:
+
 ```bash
-ssh username@<VM2_Private_IP>
+ssh username@<Target_VM_IP>
 ```
 
-If you selected a passphrase for the SSH key, that is what the password prompt will need — **not** your system user password.
+If you used a passphrase when generating the key, you’ll be prompted to enter it (not your system password).
 
 ---
 
-### STEP 4: Harden SSH Access (Optional but Recommended)
+### ✅ STEP 4: Harden SSH Configuration (Optional but Recommended)
 
-1. SSH into the server
+Once connected to the Ubuntu server:
 
-2. Edit the SSH config:
+1. Edit the SSH daemon config:
+
 ```bash
 sudo nano /etc/ssh/sshd_config
 ```
 
-3. In the nano editor, scroll down and update or confirm:
+2. Set the following:
 
 ```conf
 PasswordAuthentication no
 PermitRootLogin no
 ```
 
-4. Save and exit Nano:
-- Press Ctrl + o to write changes  
-- Press Enter to confirm  
-- Press Ctrl + x to exit  
+3. Save and exit Nano:
+- Ctrl + O → Enter → Ctrl + X
 
-5. Restart the SSH service:
+4. Restart the SSH service:
+
 ```bash
 sudo systemctl restart ssh
 ```
 
-✅ If there's no output, that's normal. You can verify:
+5. Optionally verify:
 
 ```bash
 sudo systemctl status ssh
 ```
 
-Also, try logging in again from a new terminal to verify key-only access:
-
-```bash
-ssh username@<target_vm_ip>
-```
-
-⚠️ **Azure** users: Make sure your key works *before* disabling password auth, or you risk locking yourself out.
+⚠️ **If using Azure**, confirm key login works before doing this, or you could get locked out.
 
 ---
 
-## 🧰 Permissions Checklist (on the Server)
+## 🔐 Permissions Checklist
+
+On the target server, make sure your `.ssh` directory and key file have the correct permissions:
 
 ```bash
 chmod 700 ~/.ssh
@@ -273,19 +231,18 @@ chmod 600 ~/.ssh/authorized_keys
 
 ---
 
-## 🧠 Troubleshooting Tips
+## 🧠 Troubleshooting Guide
 
-| Symptom                          | Fix                                                                 |
+| Symptom                          | Suggested Fix                                                       |
 |----------------------------------|----------------------------------------------------------------------|
-| `Permission denied (publickey)` | Check if public key is in `~/.ssh/authorized_keys`                  |
-| Key file ignored                 | Use the correct private key path (`~/.ssh/id_rsa`)                  |
-| Wrong permissions                | `.ssh = 700`, `authorized_keys = 600`                              |
-| Still asked for password        | Make sure you're using the private key, not `.pub`                 |
-| Verbose output                  | Add `-v` to debug: `ssh -v user@host`                              |
+| `Permission denied (publickey)` | Ensure key is in `~/.ssh/authorized_keys` and matches your private key |
+| Still asked for password         | You may be using the `.pub` key instead of the private one           |
+| Key ignored                      | File permissions or incorrect path                                  |
+| Debug login attempts             | Use verbose output: `ssh -v username@host`                          |
 
 ---
 
-## 📂 Suggested Folder Structure
+## 📁 Suggested Project Folder Structure
 
 ```
 ssh-key-authentication-lab/
@@ -300,9 +257,9 @@ ssh-key-authentication-lab/
 
 ## ✅ Summary
 
-Whether you're using Azure or VirtualBox, you now have hands-on experience creating and using SSH key pairs for secure remote access. SSH keys are a security best practice and a foundational skill for cloud, DevOps, and cybersecurity professionals.
+Whether you're using Azure or VirtualBox, this lab has walked you through securely accessing a remote Linux machine using SSH key authentication. This method is a foundational best practice for cybersecurity, DevOps, and system administration professionals.
 
-> 🔐 **SSH key authentication improves both security and convenience for server access.**
+> 🔐 **SSH key authentication improves both security and convenience over traditional passwords.**
 
 ---
 
