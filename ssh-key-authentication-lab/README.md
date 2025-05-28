@@ -1,3 +1,4 @@
+````markdown
 # 🔐 SSH Key Authentication Lab (Azure or VirtualBox)
 
 A hands-on lab that walks you through setting up secure SSH access using public-private key pairs. You’ll SSH from your personal PC (or a local VM) into an Ubuntu server hosted either on Azure or in VirtualBox, using a secure RSA key pair.
@@ -13,7 +14,7 @@ A hands-on lab that walks you through setting up secure SSH access using public-
 
 ---
 
-## 🧰 Lab Setup
+## 🛠️ Lab Setup
 
 Choose one of the following deployment options for your Ubuntu server target:
 
@@ -114,6 +115,39 @@ ssh-keygen -t rsa -b 4096 -C "peter@azurelab"
 
 6. Click **Review + Create** and then **Create**  
 7. After deployment, note your **public IP address**
+
+---
+
+## ⚠️ Warning: Do Not Overwrite Existing SSH Key Files
+
+When generating a new SSH key pair with `ssh-keygen`, you may see a prompt like this:
+
+```bash
+Enter file in which to save the key (/home/youruser/.ssh/id_rsa):
+```
+
+If you press Enter and a key already exists at that location, you'll be asked:
+
+```bash
+/home/youruser/.ssh/id_rsa already exists.
+Overwrite (y/n)?
+```
+
+❗ **Do not choose "yes" unless you intend to replace the existing key.**
+
+Overwriting your key will break access to any servers (such as Azure VMs) that were configured with the original key. This will result in errors like:
+
+```bash
+Permission denied (publickey)
+```
+
+✅ Instead, either reuse your existing key or generate a new one with a different filename:
+
+```bash
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_new
+```
+
+This ensures existing connections remain valid.
 
 ---
 
@@ -268,3 +302,4 @@ Whether you're using Azure or VirtualBox, this lab has walked you through secure
 - [Azure SSH Access Docs](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/ssh-from-windows)
 - [VirtualBox Networking Modes](https://www.virtualbox.org/manual/ch06.html)
 - [SSH Key Concepts (SSH.com)](https://www.ssh.com/academy/ssh/keygen)
+````
