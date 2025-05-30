@@ -13,7 +13,7 @@ A curated collection of practical scripts, guides, and verification tools to sup
   Ensure downloaded files haven’t been tampered with or corrupted by validating their SHA256 hash using PowerShell.
 
 - 🔐 [SSH Key Authentication Lab](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/ssh-key-authentication-lab)  
-  Step-by-step guide to securely access Ubuntu servers using SSH public/private key pairs via Azure or VirtualBox.
+  Step-by-step guide to securely access Linux machines (Ubuntu Server here) using SSH public/private key pairs via Azure or VirtualBox.
 
 
 ---
