@@ -6,6 +6,9 @@ A curated collection of practical scripts, guides, and verification tools to sup
 
 ## 📂 Included Tools
 
+- 🖨️ [Printer Firewall Hardening](./printer-firewall-hardening/README.md)  
+  Step-by-step Windows Firewall rule configuration to prevent public access to printers while maintaining local and cloud printing capabilities.
+
 - 🔐 [GPG Signature Verification Guide](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/gpg-verification-guide)  
   Learn how to verify the authenticity of downloaded files using GPG digital signatures and official public keys.
 
