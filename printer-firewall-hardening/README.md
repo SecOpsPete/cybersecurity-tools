@@ -43,7 +43,7 @@ Default Gateway . . . : 192.168.1.1
 
 ---
 
-IMAGE1
+![Inbound Rule](images/allowfw1.png)
 
 ### ✅ Step 3: Allow Printer Access on Private Network
 
@@ -61,7 +61,7 @@ IMAGE1
 
 ---
 
-IMAGE2
+![Allow Subnet Access](images/allowsubnet2.png)
 
 ### ✅ Step 4: Verify or Create Outbound Rule for Printer Software
 
@@ -93,7 +93,7 @@ Get-AppxPackage *printer* | Select-Object -ExpandProperty InstallLocation
 
 ---
 
-IMAGEHP
+![Verify Existing Rule](images/HPexisting.png)
 
 ### 🔐 Step 5: Block All Inbound to Printer (Public)
 
@@ -111,7 +111,7 @@ IMAGEHP
 
 ---
 
-IMAGE3
+![Block All Inbound](images/blockallfw3.png)
 
 ## 🔍 Rule Comparison & Importance
 
