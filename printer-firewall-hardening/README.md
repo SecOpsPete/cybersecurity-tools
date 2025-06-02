@@ -1,4 +1,4 @@
-# 🔐 HP Printer Firewall Hardening 🔐
+# 🔐 SOHO Printer Firewall Hardening 🔐
 ## 🧭 Purpose
 This project documents a practical method for hardening network printers (e.g., HP OfficeJet Pro 8030) using Windows Defender Firewall (`wf.msc`). It focuses on restricting public exposure to commonly abused printer ports (e.g., 9100), while preserving internal network functionality and cloud connectivity via HP Smart.
 
