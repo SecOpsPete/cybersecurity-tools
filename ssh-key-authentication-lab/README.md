@@ -1,4 +1,4 @@
-# 🔐 SSH Key Authentication Lab (Azure or VirtualBox)
+# 🔐 SSH Key Authentication (Azure or VirtualBox)
 
 A hands-on lab that walks you through setting up secure SSH access using public-private key pairs. You’ll SSH from your personal PC (or a local VM) into an Ubuntu server hosted either on Azure or in VirtualBox, using a secure RSA key pair.
 
