@@ -108,6 +108,10 @@ Get-FileHash -Algorithm SHA256 (Get-Process -Name Code).Path
 
 ---
 
+![Virus Total Results](images/virustotal.png)
+
+---
+
 ## 🧾 3. Inspect the Digital Signature
 
 Examine the file's signature to determine if it's from a trusted vendor or unsigned.
@@ -129,6 +133,10 @@ Get-AuthenticodeSignature (Get-Process -Name Code).Path
 
 ---
 
+![Valid Digital Signature](images/ValidProcess4.png)
+
+---
+
 ## 🧠 4. Show Detailed Process Information
 
 For deeper context, use CIM to get command-line arguments, full execution path, and the creation timestamp.
@@ -141,6 +149,10 @@ Get-CimInstance Win32_Process -Filter "Name = 'Code.exe'" | Select-Object Proces
 - **CommandLine**: Suspicious parameters like `-enc`, `-nop`, `-w hidden` may indicate obfuscation or evasion.
 - **ExecutablePath**: Should typically reside in `C:\Program Files\`. If it's located under `AppData`, `Temp`, or hidden folders, be cautious.
 - **CreationDate**: Correlate with user activity or boot times.
+
+---
+
+![Process Command Line Info](images/ProcessInfo5.png)
 
 ---
 
