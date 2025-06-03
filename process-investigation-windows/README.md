@@ -28,6 +28,10 @@ If you're not starting with a known suspicious process, here's how to find one t
    - Unusual CPU, memory, or disk usage
    - Executables running from user folders like `%APPDATA%` or `%TEMP%`
 
+👉 **Tip:** In the **Details** tab of Task Manager, right-click any column header (e.g., "Name" or "PID") and select **"Select Columns"**. Then enable:
+- `Image Path Name` to display the full file path (watch for suspicious locations like `%APPDATA%` or `%TEMP%`)
+- `Publisher` to see the digital signature publisher, if available
+
 ### 🖥️ Method 2: Use PowerShell
 You can also list all running processes and examine key details:
 ```powershell
