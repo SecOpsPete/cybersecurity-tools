@@ -6,6 +6,9 @@ A curated collection of practical scripts, guides, and verification tools to sup
 
 ## 📂 Included Tools
 
+- 🔍 [Process Investigation: Suspicious Windows Executables](./process-investigation-windows/README.md)  
+  Triage and analyze processes with PowerShell: inspect metadata, validate signatures, and check hashes via VirusTotal.
+
 - 🖨️ [Printer Firewall Hardening](./printer-firewall-hardening/README.md)  
   Step-by-step Windows Firewall rule configuration to prevent public access to printers while maintaining local and cloud printing capabilities.
 
