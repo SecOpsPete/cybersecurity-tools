@@ -32,6 +32,8 @@ If you're not starting with a known suspicious process, here's how to find one t
 - `Image Path Name` to display the full file path (watch for suspicious locations like `%APPDATA%` or `%TEMP%`)
 - `Publisher` to see the digital signature publisher, if available
 
+---
+
 ### 🖥️ Method 2: Use PowerShell
 You can also list all running processes and examine key details:
 ```powershell
@@ -61,6 +63,10 @@ You've noticed a process named `Code.exe` running on your system. While it's lik
 
 ---
 
+![Task Manager Details View](images/TaskManager1.png)
+
+---
+
 ## 🔍 1. Locate the File and Process Metadata
 
 Use the `Get-Process` cmdlet to locate the file, identify its path, process ID, and when it started.
@@ -76,6 +82,10 @@ Get-Process -Name Code | Select-Object Id, Path, StartTime
 
 ---
 
+![Get-Process Output](images/ProcessList2.png)
+
+---
+
 ## 🧾 2. Get the File Hash for VirusTotal
 
 Calculate the SHA-256 hash of the executable. This unique fingerprint can be queried on [VirusTotal](https://www.virustotal.com) to check if it's been flagged by antivirus engines.
@@ -87,6 +97,12 @@ Get-FileHash -Algorithm SHA256 (Get-Process -Name Code).Path
 ### ✅ Why This Matters:
 - **SHA-256 hash**: Allows anonymous reputation checking without uploading the file.
 - This avoids alerting attackers in the case of live malware.
+
+---
+
+![SHA256 Hash](images/sha256_3.png)
+
+---
 
 **➡️ Next step:** Copy the resulting hash and paste it into the VirusTotal search bar.
 
