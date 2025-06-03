@@ -51,14 +51,13 @@ Get-Process | Select-Object Name, Id, Path, StartTime
 
 > 🧠 Once you've chosen a process, continue below to analyze it using PowerShell.
 
-
 ---
 
 ## 🧪 Lab Scenario
 
-Imagine you've noticed a process named `ai.exe` running on your system. You're unsure whether it's legitimate or potentially malicious. This lab walks you through the step-by-step triage process using native PowerShell tools.
+You've noticed a process named `Code.exe` running on your system. While it's likely tied to Visual Studio Code, it appears to be executing from the user-specific `%LocalAppData%` path. This lab will walk you through how to verify its legitimacy using native PowerShell tools.
 
-> **Note:** You can replace `ai` with any real process name you wish to investigate.
+> **Note:** You can replace `Code` with any real process name you wish to investigate.
 
 ---
 
@@ -67,7 +66,7 @@ Imagine you've noticed a process named `ai.exe` running on your system. You're u
 Use the `Get-Process` cmdlet to locate the file, identify its path, process ID, and when it started.
 
 ```powershell
-Get-Process -Name ai | Select-Object Id, Path, StartTime
+Get-Process -Name Code | Select-Object Id, Path, StartTime
 ```
 
 ### ✅ Why This Matters:
@@ -82,7 +81,7 @@ Get-Process -Name ai | Select-Object Id, Path, StartTime
 Calculate the SHA-256 hash of the executable. This unique fingerprint can be queried on [VirusTotal](https://www.virustotal.com) to check if it's been flagged by antivirus engines.
 
 ```powershell
-Get-FileHash -Algorithm SHA256 (Get-Process -Name ai).Path
+Get-FileHash -Algorithm SHA256 (Get-Process -Name Code).Path
 ```
 
 ### ✅ Why This Matters:
@@ -98,7 +97,7 @@ Get-FileHash -Algorithm SHA256 (Get-Process -Name ai).Path
 Examine the file's signature to determine if it's from a trusted vendor or unsigned.
 
 ```powershell
-Get-AuthenticodeSignature (Get-Process -Name ai).Path
+Get-AuthenticodeSignature (Get-Process -Name Code).Path
 ```
 
 ### ✅ What to Look For:
@@ -119,7 +118,7 @@ Get-AuthenticodeSignature (Get-Process -Name ai).Path
 For deeper context, use CIM to get command-line arguments, full execution path, and the creation timestamp.
 
 ```powershell
-Get-CimInstance Win32_Process -Filter "Name = 'ai.exe'" | Select-Object ProcessId, CommandLine, ExecutablePath, CreationDate
+Get-CimInstance Win32_Process -Filter "Name = 'Code.exe'" | Select-Object ProcessId, CommandLine, ExecutablePath, CreationDate
 ```
 
 ### ✅ What to Look For:
@@ -134,7 +133,7 @@ Get-CimInstance Win32_Process -Filter "Name = 'ai.exe'" | Select-Object ProcessI
 If you determine the process is untrusted or malicious, stop it immediately.
 
 ```powershell
-Stop-Process -Name ai -Force
+Stop-Process -Name Code -Force
 ```
 
 ### ✅ Follow-Up Action:
@@ -173,7 +172,6 @@ Now that the process is terminated:
 - [Get-AuthenticodeSignature - Microsoft Docs](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-authenticodesignature)
 - [Win32_Process WMI Class - Microsoft Docs](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-process)
 
-
 ---
 
 ## 👨‍💻 Author
@@ -183,3 +181,4 @@ Security Analyst & Researcher
 [GitHub: SecOpsPete](https://github.com/SecOpsPete)
 
 ---
+````
