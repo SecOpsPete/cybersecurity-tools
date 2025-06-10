@@ -42,7 +42,9 @@ Default Gateway . . . : 192.168.1.1
 
 ---
 
-![Inbound Rule](images/allowfw1.png)
+<div align="center">
+  <img src="images/allowfw1.png" alt="wf.msc" width="40%">
+</div>
 
 ### ✅ Step 3: Allow Printer Access on Private Network
 
@@ -60,7 +62,10 @@ Default Gateway . . . : 192.168.1.1
 
 ---
 
-![Allow Subnet Access](images/allowsubnet2.png)
+<div align="center">
+  <img src="images/allowsubnet2.png" alt="wf.msc" width="40%">
+</div>
+
 
 ### ✅ Step 4: Verify or Create Outbound Rule for Printer Software
 
