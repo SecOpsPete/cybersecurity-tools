@@ -97,7 +97,9 @@ Get-AppxPackage *printer* | Select-Object -ExpandProperty InstallLocation
 
 ---
 
-![Verify Existing Rule](images/HPexisting.png)
+<div align="center">
+  <img src="images/HPexisting.png" alt="wf.msc" width="40%">
+</div>
 
 ### 🔐 Step 5: Block All Inbound to Printer (Public)
 
@@ -115,7 +117,9 @@ Get-AppxPackage *printer* | Select-Object -ExpandProperty InstallLocation
 
 ---
 
-![Block All Inbound](images/blockallfw3.png)
+<div align="center">
+  <img src="images/blockallfw3.png" alt="wf.msc" width="40%">
+</div>
 
 ## 🔍 Rule Comparison & Importance
 
