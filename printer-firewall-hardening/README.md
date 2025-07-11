@@ -42,10 +42,6 @@ Default Gateway . . . : 192.168.1.1
 
 ---
 
-<div align="center">
-  <img src="images/allowfw1.png" alt="wf.msc" width="40%">
-</div>
-
 ### ✅ Step 3: Allow Printer Access on Private Network
 
 **Purpose**: Enable printing from local, trusted devices
@@ -61,11 +57,6 @@ Default Gateway . . . : 192.168.1.1
 7. Name: `Allow Printer Access from Local Subnet (TCP)`
 
 ---
-
-<div align="center">
-  <img src="images/allowsubnet2.png" alt="wf.msc" width="40%">
-</div>
-
 
 ### ✅ Step 4: Verify or Create Outbound Rule for Printer Software
 
@@ -97,10 +88,6 @@ Get-AppxPackage *printer* | Select-Object -ExpandProperty InstallLocation
 
 ---
 
-<div align="center">
-  <img src="images/HPexisting.png" alt="wf.msc" width="40%">
-</div>
-
 ### 🔐 Step 5: Block All Inbound to Printer (Public)
 
 **Purpose**: Catch-all protection for the printer’s IP when on public networks
@@ -116,10 +103,6 @@ Get-AppxPackage *printer* | Select-Object -ExpandProperty InstallLocation
 7. Name: `Block All Inbound to Printer (Public)`
 
 ---
-
-<div align="center">
-  <img src="images/blockallfw3.png" alt="wf.msc" width="40%">
-</div>
 
 ## 🔍 Rule Comparison & Importance
 
