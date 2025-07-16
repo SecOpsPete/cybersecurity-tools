@@ -39,63 +39,75 @@ Performs a comprehensive local system threat audit covering:
 Performs a system threat audit and saves results to a timestamped log file.
 
 .DESCRIPTION
-Checks PowerShell execution policies, script block logging, auto-start entries, scheduled tasks,
-auto-start services, active TCP connections, and temp folder size.
+Checks PowerShell execution policies, logging status, autoruns, scheduled tasks, services, TCP connections, and temp folder usage.
 
-.OUTPUT
-Creates a timestamped log file in C:\Scripts\Logs\
+.USAGE
+Run manually in an elevated PowerShell session.
 
-.AUTHOR
-SecOpsPete
+.NOTES
+Author: SecOpsPete
+Date: July 2025
 #>
 
-$timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-$logPath = "C:\Scripts\Logs\ThreatAudit_$timestamp.txt"
-
-Start-Transcript -Path $logPath -Append
-Write-Host "🔍 Starting Threat Audit..." -ForegroundColor Cyan
-
-# 1. PowerShell Execution Policy
-Write-Host "`n[1] PowerShell Execution Policy:`n" -ForegroundColor Yellow
-Get-ExecutionPolicy -List
-
-# 2. Script Block Logging
-Write-Host "`n[2] PowerShell ScriptBlock Logging:" -ForegroundColor Yellow
-$scriptLoggingPath = "HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
-if (Test-Path $scriptLoggingPath) {
-    Get-ItemProperty -Path $scriptLoggingPath
-} else {
-    Write-Host "Not enabled." -ForegroundColor DarkGray
+# Create log folder if it doesn't exist
+$logFolder = "C:\Scripts\Logs"
+if (!(Test-Path -Path $logFolder)) {
+    New-Item -ItemType Directory -Path $logFolder -Force | Out-Null
 }
 
-# 3. Registry Autoruns
-Write-Host "`n[3] Startup Registry Entries (Current User and Local Machine):" -ForegroundColor Yellow
+# Create timestamped log file path
+$timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$logPath = Join-Path $logFolder "ThreatAudit_$timestamp.txt"
+
+# Start transcript
+Start-Transcript -Path $logPath -Force
+
+Write-Host "`n🔍 Starting Threat Audit...`n"
+
+# [1] PowerShell Execution Policy
+Write-Host "`n[1] PowerShell Execution Policy:`n"
+Get-ExecutionPolicy -List
+
+# [2] ScriptBlock Logging Status
+Write-Host "`n[2] PowerShell ScriptBlock Logging:"
+$regPath = "HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
+if (Test-Path $regPath) {
+    Get-ItemProperty -Path $regPath | Format-List
+} else {
+    Write-Host "Not enabled."
+}
+
+# [3] Autoruns: Current User and Local Machine
+Write-Host "`n[3] Startup Registry Entries (Current User and Local Machine):`n"
 Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
 Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
 
-# 4. Non-Microsoft Scheduled Tasks
-Write-Host "`n[4] Non-Microsoft Scheduled Tasks:`n" -ForegroundColor Yellow
-Get-ScheduledTask |
-    Where-Object {$_.TaskPath -notlike "\Microsoft*"} |
-    Select-Object TaskName, TaskPath, State
+# [4] Scheduled Tasks (Non-Microsoft)
+Write-Host "`n[4] Non-Microsoft Scheduled Tasks:`n"
+Get-ScheduledTask | Where-Object { $_.TaskName -notmatch "Microsoft" } | Format-Table TaskName, TaskPath, State -AutoSize
 
-# 5. Auto-start Services
-Write-Host "`n[5] Auto-Start Services:`n" -ForegroundColor Yellow
-Get-CimInstance Win32_Service | Where-Object {$_.StartMode -eq "Auto"} |
-    Select-Object Name, DisplayName, StartMode, State, PathName
+# [5] Auto-start Services
+Write-Host "`n[5] Auto-Start Services:`n"
+Get-CimInstance -ClassName Win32_Service | Where-Object { $_.StartMode -eq 'Auto' } | 
+    Select-Object Name, DisplayName, StartMode, State, PathName | 
+    Sort-Object -Property Name | 
+    Format-Table -AutoSize
 
-# 6. Active TCP Connections
-Write-Host "`n[6] Established TCP Connections:`n" -ForegroundColor Yellow
-Get-NetTCPConnection -State Established | Select-Object LocalAddress, RemoteAddress, RemotePort, State, OwningProcess
+# [6] Active TCP Connections
+Write-Host "`n[6] Established TCP Connections:`n"
+Get-NetTCPConnection | Where-Object { $_.State -eq 'Established' } |
+    Select-Object LocalAddress, RemoteAddress, RemotePort, State, OwningProcess |
+    Format-Table -AutoSize
 
-# 7. Temp Folder Status
-Write-Host "`n[7] Temp Folder Status:" -ForegroundColor Yellow
-$tempFiles = Get-ChildItem "$env:TEMP" -Recurse -Force -ErrorAction SilentlyContinue
-$totalSize = ($tempFiles | Measure-Object -Property Length -Sum).Sum / 1MB
-Write-Host "Files: $($tempFiles.Count), Total Size: $([math]::Round($totalSize, 2)) MB"
+# [7] Temp Folder Size
+Write-Host "`n[7] Temp Folder Status:"
+$temp = Get-ChildItem -Path $env:TEMP -Recurse -ErrorAction SilentlyContinue
+$size = ($temp | Measure-Object -Property Length -Sum).Sum / 1MB
+"{0}Files: {1}, Total Size: {2:N2} MB" -f "`n", $temp.Count, $size | Write-Host
 
+# End transcript
 Stop-Transcript
-Write-Host "`n📝 Log saved to: $logPath" -ForegroundColor Green
+
 ```
 
 ---
