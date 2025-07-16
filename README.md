@@ -6,6 +6,9 @@ A curated collection of practical scripts, guides, and verification tools to sup
 
 ## 📂 Included Tools
 
+- 🛡️ [Threat Audit & Cleanup Automation](./threat-audit-cleanup/README.md)  
+  Run a weekly PowerShell audit to surface autoruns, suspicious services, TCP connections, and missing logging; includes optional temp folder cleanup and scheduled task automation.
+
 - 🔍 [Process Investigation: Suspicious Windows Executables](./process-investigation-windows/README.md)  
   Triage and analyze processes with PowerShell: inspect metadata, validate signatures, and check hashes via VirusTotal.
 
