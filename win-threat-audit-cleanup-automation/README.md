@@ -123,34 +123,48 @@ Registers the `Threat-Audit.ps1` script to run every Monday at **8:05 AM**, with
 ### 💻 Script
 
 ```powershell
+
 <#
 .SYNOPSIS
-Registers a scheduled task to run Threat-Audit.ps1 weekly.
+Registers a scheduled task to run Threat-Audit.ps1 weekly using PowerShell 7 (pwsh.exe)
 
 .DESCRIPTION
-Creates a scheduled task named 'ThreatAuditWeekly' that runs every Monday at 8:05 AM.
-If the system is off, it runs at next startup.
+Creates a scheduled task named 'ThreatAuditWeekly' that runs every Monday at 8:05 AM using pwsh.exe.
+Ensures it runs as SYSTEM with highest privileges, and re-runs at startup if missed.
 
 .AUTHOR
 SecOpsPete
 #>
 
-$taskName = "ThreatAuditWeekly"
+$taskName   = "ThreatAuditWeekly"
 $scriptPath = "C:\Scripts\Threat-Audit.ps1"
-$time = "08:05AM"
-$days = "Monday"
+$time       = "08:05AM"
+$days       = "Monday"
 
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`""
+# Use PowerShell 7 executable
+$pwshPath = "$env:ProgramFiles\PowerShell\7\pwsh.exe"
+
+# Validate pwsh exists
+if (-not (Test-Path $pwshPath)) {
+    Write-Error "⚠️ pwsh.exe not found at $pwshPath. Is PowerShell 7 installed?"
+    return
+}
+
+# Set action using PowerShell 7
+$action = New-ScheduledTaskAction -Execute $pwshPath -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`""
+
+# Set trigger to weekly on selected day/time
 $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek $days -At $time
 $trigger.StartBoundary = ([datetime]::Now).Date.AddHours(8).AddMinutes(5).ToString("s")
 $trigger.Enabled = $true
-$triggerExecution = $trigger | Set-ScheduledTaskTrigger -RunOnStartupIfMissed $true
 
-Register-ScheduledTask -Action $action -Trigger $trigger -TaskName $taskName -Description "Run weekly threat audit every $days at $time" -User "SYSTEM" -RunLevel Highest -Force
+# Register the task
+Register-ScheduledTask -Action $action -Trigger $trigger -TaskName $taskName -Description "Weekly Threat Audit using pwsh.exe" -User "SYSTEM" -RunLevel Highest -Force
 
-# Output
+# Output status
 Get-ScheduledTask -TaskName $taskName | Select-Object TaskPath, TaskName, State
-Write-Host "✅ Scheduled task '$taskName' registered to run every $days at $time (will run on next startup if missed)." -ForegroundColor Green
+Write-Host "✅ Scheduled task '$taskName' successfully created to run with PowerShell 7." -ForegroundColor Green
+
 ```
 
 ---
