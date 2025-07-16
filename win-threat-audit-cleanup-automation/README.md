@@ -143,6 +143,27 @@ Write-Host "✅ Scheduled task '$taskName' registered to run every $days at $tim
 
 ---
 
+## 📝 Logging Behavior
+
+The `Threat-Audit.ps1` script handles all logging internally. It creates a **timestamped log file** for every run in the `Logs` subfolder, using the format:
+
+```
+ThreatAudit_YYYY-MM-DD_HH-MM-SS.txt
+```
+
+You do **not** need to modify the scheduled task with `*>` output redirection — logging is already built into the script using `Start-Transcript`.
+
+📂 Example:
+```
+C:\Scripts\Logs\
+├── ThreatAudit_2025-07-15_23-32-47.txt
+├── ThreatAudit_2025-07-16_00-04-59.txt
+```
+
+This preserves the output of every audit for historical reference and review.
+
+---
+
 ## 🧹 Clean-TempFolder.ps1 (use with caution or perform manually)
 
 ### 🎯 Purpose
