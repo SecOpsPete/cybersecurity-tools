@@ -107,7 +107,6 @@ $size = ($temp | Measure-Object -Property Length -Sum).Sum / 1MB
 
 # End transcript
 Stop-Transcript
-
 ```
 
 ---
@@ -123,7 +122,6 @@ Registers the `Threat-Audit.ps1` script to run every Monday at **8:05 AM**, with
 ### 💻 Script
 
 ```powershell
-
 <#
 .SYNOPSIS
 Registers a scheduled task to run Threat-Audit.ps1 weekly using PowerShell 7 (pwsh.exe)
@@ -164,7 +162,6 @@ Register-ScheduledTask -Action $action -Trigger $trigger -TaskName $taskName -De
 # Output status
 Get-ScheduledTask -TaskName $taskName | Select-Object TaskPath, TaskName, State
 Write-Host "✅ Scheduled task '$taskName' successfully created to run with PowerShell 7." -ForegroundColor Green
-
 ```
 
 ---
@@ -174,19 +171,17 @@ Write-Host "✅ Scheduled task '$taskName' successfully created to run with Powe
 The `Threat-Audit.ps1` script handles all logging internally. It creates a **timestamped log file** for every run in the `Logs` subfolder, using the format:
 
 ```
-ThreatAudit_YYYY-MM-DD_HH-MM-SS.txt
+ThreatAudit_YYYYMMDD_HHMMSS.txt
 ```
-
-You do **not** need to modify the scheduled task with `*>` output redirection — logging is already built into the script using `Start-Transcript`.
 
 📂 Example:
 ```
 C:\Scripts\Logs\
-├── ThreatAudit_2025-07-15_23-32-47.txt
-├── ThreatAudit_2025-07-16_00-04-59.txt
+├── ThreatAudit_20250715_233247.txt
+├── ThreatAudit_20250716_000459.txt
 ```
 
-This preserves the output of every audit for historical reference and review.
+You do **not** need to use output redirection — logging is handled by `Start-Transcript`.
 
 ---
 
