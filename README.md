@@ -9,6 +9,9 @@ A curated collection of practical scripts, guides, and verification tools to sup
 - 🛡️ [Threat Audit & Cleanup Automation](./win-threat-audit-cleanup-automation/README.md)  
   Run a weekly PowerShell audit to surface autoruns, suspicious services, TCP connections, and missing logging; includes optional temp folder cleanup and scheduled task automation.
 
+- 🛡️ [Defender ASR Hardening Scripts](./windows-defender-asr-hardening/README.md)  
+  Block macro-based malware by enabling Microsoft Defender’s Attack Surface Reduction rule to prevent Office apps from launching child processes like PowerShell or cmd.
+
 - 🔍 [Process Investigation: Suspicious Windows Executables](./process-investigation-windows/README.md)  
   Triage and analyze processes with PowerShell: inspect metadata, validate signatures, and check hashes via VirusTotal.
 
