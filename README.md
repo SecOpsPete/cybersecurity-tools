@@ -6,13 +6,13 @@ A curated collection of practical scripts, guides, and verification tools to sup
 
 ## 📂 Included Tools
 
-- 🛡️ [Threat Audit & Cleanup Automation](./win-threat-audit-cleanup-automation/README.md)  
+- 🛡️ [Windows Threat Audit & Cleanup Automation](./win-threat-audit-cleanup-automation/README.md)  
   Run a weekly PowerShell audit to surface autoruns, suspicious services, TCP connections, and missing logging; includes optional temp folder cleanup and scheduled task automation.
 
-- 🛡️ [Defender ASR Hardening Scripts](./microsoft-defender-attack-surface-reduction/README.md)  
+- 🛡️ [Microsoft Defender Attack Surface Reduction](./microsoft-defender-attack-surface-reduction/README.md)  
   Block macro-based malware by enabling Microsoft Defender’s Attack Surface Reduction rule to prevent Office apps from launching child processes like PowerShell or cmd.
 
-- 🔍 [Process Investigation: Suspicious Windows Executables](./process-investigation-windows/README.md)  
+- 🔍 [Process Investigation with PowerShell](./process-investigation-windows/README.md)  
   Triage and analyze processes with PowerShell: inspect metadata, validate signatures, and check hashes via VirusTotal.
 
 - 🔐 [GPG Signature Verification Guide](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/gpg-verification-guide)  
@@ -21,7 +21,7 @@ A curated collection of practical scripts, guides, and verification tools to sup
 - 🧪 [File Integrity Verification (SHA256)](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/file-integrity-verification)  
   Ensure downloaded files haven’t been tampered with or corrupted by validating their SHA256 hash using PowerShell.
 
-- 🔐 [SSH Key Authentication Lab](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/ssh-key-authentication-lab)  
+- 🔐 [SSH Key Authentication](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/ssh-key-authentication-lab)  
   Step-by-step guide to securely access Linux machines (Ubuntu Server here) using SSH public/private key pairs via Azure or VirtualBox.
 
 
