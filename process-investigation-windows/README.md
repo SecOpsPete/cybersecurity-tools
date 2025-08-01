@@ -1,4 +1,4 @@
-# 🛠️ Malware Triage: Analyze and Investigate Suspicious Processes with PowerShell
+# 🛠️ Analyze and Investigate Suspicious Processes with PowerShell
 
 This lab provides a hands-on walkthrough for identifying, analyzing, and investigating a potentially suspicious process on a Windows system. The process includes gathering metadata, validating the digital signature, computing a hash for online reputation checks, and, if needed, safely terminating the process.
 
