@@ -87,7 +87,8 @@ cat $env:USERPROFILE\.ssh\id_rsa.pub
 If no key exists, generate one:
 
 ```powershell
-ssh-keygen -t rsa -b 4096 -C "peter@azurelab"
+ssh-keygen -t rsa -b 4096 -C "peter@azurelab"  # The -C flag adds a comment to the key (e.g., "user@hostname"). This comment is optional and purely informational — it doesn't restrict where the key can be used. It's helpful for identifying keys later, especially when managing multiple keys or rotating them.
+
 ```
 
 ---
