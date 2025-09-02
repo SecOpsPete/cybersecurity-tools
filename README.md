@@ -24,7 +24,7 @@ A curated collection of practical scripts, guides, and verification tools to sup
 - 🔐 [SSH Key Authentication](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/ssh-key-authentication-lab)  
   Step-by-step guide to securely access Linux machines (Ubuntu Server here) using SSH public/private key pairs via Azure or VirtualBox.
 
-- 🔐 [Microsoft 365 DKIM Setup & Verification](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/dkim-setup-ms365)  
+- 🔐 [Microsoft 365 DKIM Setup & Verification](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/DKIM-setup-guide)  
   Step-by-step guide for publishing DKIM CNAME records at your DNS host, enabling DKIM in Microsoft 365 Defender, and verifying authentication via Gmail headers and DMARC aggregate reports.
 
 
