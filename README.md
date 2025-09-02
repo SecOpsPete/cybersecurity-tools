@@ -27,6 +27,9 @@ A curated collection of practical scripts, guides, and verification tools to sup
 - 🔐 [Microsoft 365 DKIM Setup & Verification](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/DKIM-setup-guide)  
   Step-by-step guide for publishing DKIM CNAME records at your DNS host, enabling DKIM in Microsoft 365 Defender, and verifying authentication via Gmail headers and DMARC aggregate reports.
 
+- 💾 [Automated File Backup with RoboCopy](https://github.com/SecOpsPete/cybersecurity-tools/tree/main/robocopy-auto=backup)  
+  Batch script for selectively backing up key OneDrive folders to a secondary drive with RoboCopy, including logging, retry logic, and Task Scheduler integration.
+
 
 ---
 
