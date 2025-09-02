@@ -4,15 +4,6 @@ This project documents the use of **Attack Surface Reduction (ASR)** rules in Mi
 
 ---
 
-## 📁 Repository Structure
-
-```
-C:\Scripts\
-├── Enable-ASRMacroBlock.ps1         # Enables the Office macro ASR rule using pwsh.exe
-└── Logs\                            # (Optional) Folder for logging outputs (not required)
-```
-
----
 
 ## 🔍 Enable-ASRMacroBlock.ps1
 
